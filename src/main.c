@@ -12,14 +12,10 @@ int main()
     scanf("%d", &v);
     while (v > 0)
     {
-        cons(L, v);
+        insert_ordered(L, v);
         scanf("%d", &v);
     }
     print_lst(L);
-    //Test insert_after
-    insert_after(L, 8, 2);
-    print_lst(L);
-
-    del_lst(L);
+    del_lst(&L);
     return EXIT_SUCCESS;
 }

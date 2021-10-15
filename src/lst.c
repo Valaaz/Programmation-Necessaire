@@ -48,13 +48,12 @@ void print_lst(struct lst_t *L)
 void del_lst(struct lst_t **ptrL)
 {
     assert(ptrL && *ptrL);
-    // for(struct lst_elm_t * E = (*ptrL)->head; E; ) {
-    // struct lst_elm_t * T = E;
-    // E = E->suc;
-    // del_lst_elm_t(&T);
-    // }
-    // free(*ptrL);
-    // *ptrL = NULL;
+    for (struct lst_elm_t *E = (*ptrL)->head; E;)
+    {
+        struct lst_elm_t *T = E;
+        E = E->suc;
+        del_lst_elm_t(&T);
+    }
     free(*ptrL);
     *ptrL = NULL;
 }
@@ -65,13 +64,12 @@ void insert_after(struct lst_t *L, const int value, struct lst_elm_t *place)
         cons(L, value);
     else
     {
-        int temp = (int)place;
-        printf("%d\n", temp);
-        for (struct lst_elm_t *E = L->head; E; E = E->suc)
-        {
-            printf("%d\n", E->x);
-            if (E->x == temp)
-                E->x = value;
-        }
+        struct lst_elm_t *new = new_lst_elm(value);
+        assert(new);
+        new->suc = place->suc;
+        place->suc = new;
+        L->numelm++;
+        if (place == L->tail)
+            L->tail = new;
     }
 }

@@ -5,19 +5,19 @@
 #include <stdbool.h> // librairie du type booléen
 #include <assert.h>  // librairie d'assertions
 
-struct lst_elm_t * new_lst_elm(int value)
+struct lst_elm_t *new_lst_elm(int value)
 {
     struct lst_elm_t *E;
-    E = (struct lst_elm_t *) calloc(1, sizeof(struct lst_elm_t));
+    E = (struct lst_elm_t *)calloc(1, sizeof(struct lst_elm_t));
     assert(E);
     E->x = value;
     return E;
 }
 
-void del_lst_elm_t(struct lst_elm_t ** ptrE)
+void del_lst_elm_t(struct lst_elm_t **ptrE)
 {
-    assert (ptrE && *ptrE);
-    free (*ptrE);
+    assert(ptrE && *ptrE);
+    free(*ptrE);
     *ptrE = NULL;
 }
 
