@@ -26,5 +26,9 @@ void cons(struct lst_t *L, int v);
 /** @brief Visualiser les éléments de la liste L */
 void print_lst(struct lst_t *L);
 /** @brief Libèrer la mémoire occupée par la liste */
-void del_lst(struct lst_t ** ptrL);
+void del_lst(struct lst_t **ptrL);
+/** @brief Insère dans l’ordre croissant la valeur
+entière value dans la liste L */
+void insert_ordered(struct lst_t *L, const int value);
+
 #endif

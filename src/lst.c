@@ -24,15 +24,14 @@ struct lst_t *newLst()
 
 void cons(struct lst_t *L, int v)
 {
-    struct lst_elm_t *new = malloc(sizeof(*new));
-    if (L == NULL || new == NULL)
-    {
-        exit(EXIT_FAILURE);
-    }
-    new->x = v;
-
-    new->suc = L->head;
-    L->head = new;
+    assert(L);
+    struct lst_elm_t *E = new_lst_elm(v);
+    assert(E);
+    E->suc = L->head;
+    L->head = E;
+    if (L->numelm == 0)
+        L->tail = E;
+    L->numelm += 1;
 }
 
 void print_lst(struct lst_t *L)
@@ -71,5 +70,35 @@ void insert_after(struct lst_t *L, const int value, struct lst_elm_t *place)
         L->numelm++;
         if (place == L->tail)
             L->tail = new;
+    }
+}
+
+void insert_ordered(struct lst_t *L, const int value)
+{
+    if (emptyLst(L))
+    {
+        cons(L, value);
+        print_lst(L);
+    }
+    else if (value < L->head->x)
+    {
+        cons(L, value);
+        print_lst(L);
+    }
+    else if (value > L->tail->x)
+    {
+        insert_after(L, value, L->tail);
+        print_lst(L);
+    }
+    else
+    {
+        for (struct lst_elm_t *E = L->head; E; E = E->suc)
+        {
+            if (value > E->x && value <= E->suc->x)
+            {
+                insert_after(L, value, E);
+                print_lst(L);
+            }
+        }
     }
 }
