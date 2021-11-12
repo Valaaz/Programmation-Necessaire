@@ -9,8 +9,8 @@
  */
 struct lst_elm_t
 {
-    int x;
-    struct lst_elm_t *suc;
+	void *datum;
+	struct lst_elm *suc;
 };
 
 /*** DÉCLARATION DES FONCTIONS ASSOCIÉES ***
@@ -23,11 +23,11 @@ struct lst_elm_t
 	*  des éléments de liste
 	*/
 /** @brief Création d'un nouvel élément de liste d'entiers */
-struct lst_elm_t * new_lst_elm(int value);
+struct lst_elm_t *new_lst_elm(void *datum);
 /** @brief Suppression d'un élément de liste d'entiers */
-void del_lst_elm_t(struct lst_elm_t ** ptrE);
-int getX(struct lst_elm_t *E);
+void del_lst_elm_t(struct lst_elm_t **ptrE);
+void *getDatum(struct lst_elm_t *E);
 struct lst_elm_t *getSuc(struct lst_elm_t *E);
-void setX(struct lst_elm_t *E, int v);
+void *setDatum(struct lst_elm_t *E, void *datum);
 void setSuc(struct lst_elm_t *E, struct lst_elm_t *S);
 #endif

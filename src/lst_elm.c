@@ -5,12 +5,12 @@
 #include <stdbool.h> // librairie du type booléen
 #include <assert.h>  // librairie d'assertions
 
-struct lst_elm_t *new_lst_elm(int value)
+struct lst_elm_t *new_lst_elm(void *datum)
 {
     struct lst_elm_t *E;
     E = (struct lst_elm_t *)calloc(1, sizeof(struct lst_elm_t));
     assert(E);
-    E->x = value;
+    E->datum = datum;
     return E;
 }
 
@@ -23,7 +23,7 @@ void del_lst_elm_t(struct lst_elm_t **ptrE)
 
 int getX(struct lst_elm_t *E)
 {
-    return E->x;
+    return E->datum;
 }
 
 struct lst_elm_t *getSuc(struct lst_elm_t *E)
@@ -31,9 +31,9 @@ struct lst_elm_t *getSuc(struct lst_elm_t *E)
     return E->suc;
 }
 
-void setX(struct lst_elm_t *E, int v)
+void *setDatum(struct lst_elm_t *E, void *datum)
 {
-    E->x = v;
+    E->datum = datum;
 }
 
 void setSuc(struct lst_elm_t *E, struct lst_elm_t *S)

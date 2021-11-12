@@ -22,10 +22,10 @@ struct lst_t *newLst()
     return L;
 }
 
-void cons(struct lst_t *L, int v)
+void cons(struct lst_t *L, void *datum)
 {
     assert(L);
-    struct lst_elm_t *E = new_lst_elm(v);
+    struct lst_elm_t *E = new_lst_elm(datum);
     assert(E);
     E->suc = L->head;
     L->head = E;
@@ -39,12 +39,12 @@ void print_lst(struct lst_t *L)
     printf("[ ");
     for (struct lst_elm_t *E = L->head; E; E = E->suc)
     {
-        printf("%d ", E->x);
+        printf("%d ", E->datum);
     }
     printf("]\n\n");
 }
 
-void del_lst(struct lst_t **ptrL)
+void del_lst(struct lst_t **ptrL, void (*ptrFct)())
 {
     assert(ptrL && *ptrL);
     for (struct lst_elm_t *E = (*ptrL)->head; E;)
@@ -73,30 +73,31 @@ void insert_after(struct lst_t *L, const int value, struct lst_elm_t *place)
     }
 }
 
-void insert_ordered(struct lst_t *L, const int value)
+void insert_ordered(struct lst_t *L, void *datum, bool (*ptrFct)())
 {
     if (emptyLst(L))
     {
-        cons(L, value);
+        cons(L, datum);
         print_lst(L);
     }
-    else if (value < L->head->x)
+    else if (datum < L->head->datum)
     {
-        cons(L, value);
+        cons(L, datum);
         print_lst(L);
     }
-    else if (value > L->tail->x)
+    else if (datum > L->tail->datum)
     {
-        insert_after(L, value, L->tail);
+        insert_after(L, datum, L->tail);
         print_lst(L);
     }
     else
     {
         for (struct lst_elm_t *E = L->head; E; E = E->suc)
         {
-            if (value > E->x && value <= E->suc->x)
+            // Condition biaisée
+            if (datum > E->datum && datum <= E->datum)
             {
-                insert_after(L, value, E);
+                insert_after(L, datum, E);
                 print_lst(L);
             }
         }
