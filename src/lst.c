@@ -37,10 +37,9 @@ void cons(struct lst_t *L, void *datum)
 
 void view_lst(struct lst_t *L, void (*ptrf)())
 {
-    printf("[ ");
+    printf("[\n");
     for (struct lst_elm_t *E = L->head; E; E = E->suc)
     {
-        printf("Liste :\n");
         (*ptrf)(E->datum);
     }
     printf("]\n\n");
@@ -49,11 +48,23 @@ void view_lst(struct lst_t *L, void (*ptrf)())
 void del_lst(struct lst_t **ptrL, void (*ptrFct)())
 {
     assert(ptrL && *ptrL);
-    for (struct lst_elm_t *E = (*ptrL)->head; E;)
+    if ((*ptrFct) == NULL)
     {
-        struct lst_elm_t *T = E;
-        E = E->suc;
-        del_lst_elm_t(&T);
+        for (struct lst_elm_t *E = (*ptrL)->head; E;)
+        {
+            struct lst_elm_t *T = E;
+            E = E->suc;
+            del_lst_elm_t(&T);
+        }
+    }
+    else
+    {
+        for (struct lst_elm_t *E = (*ptrL)->head; E;)
+        {
+            struct lst_elm_t *T = E;
+            E = E->suc;
+            del_lst_elm_t(&T);
+        }
     }
     free(*ptrL);
     *ptrL = NULL;
@@ -79,22 +90,29 @@ void insert_ordered(struct lst_t *L, void *datum, bool (*ptrFct)())
 {
     if (emptyLst(L))
     {
+        printf("Vide\n");
         cons(L, datum);
     }
-    else if (datum < L->head->datum)
+    else if ((*ptrFct)(datum, L->head->datum))
     {
+        printf("Tete\n");
         cons(L, datum);
     }
-    else if (datum > L->tail->datum)
+    else if ((*ptrFct)(L->tail->datum, datum))
     {
+        printf("Queue\n");
         insert_after(L, datum, L->tail);
     }
     else
     {
+        printf("Milieu\n");
         for (struct lst_elm_t *E = L->head; E; E = E->suc)
         {
-            if ((*ptrFct)(E->datum))
+            printf("Boucle\n");
+
+            if ((*ptrFct)(E->datum, datum) && (*ptrFct)(datum, E->suc->datum))
             {
+                printf("Cond\n");
                 insert_after(L, datum, E);
             }
         }

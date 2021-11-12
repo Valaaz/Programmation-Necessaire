@@ -22,6 +22,6 @@ int main()
         scanf("%d", &v);
     }
     view_lst(L, &printInteger);
-    del_lst(&L, NULL);
+    del_lst(&L, &rmInteger);
     return EXIT_SUCCESS;
 }
