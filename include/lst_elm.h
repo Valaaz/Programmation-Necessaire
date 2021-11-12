@@ -10,7 +10,7 @@
 struct lst_elm_t
 {
 	void *datum;
-	struct lst_elm *suc;
+	struct lst_elm_t *suc;
 };
 
 /*** DÉCLARATION DES FONCTIONS ASSOCIÉES ***
@@ -28,6 +28,6 @@ struct lst_elm_t *new_lst_elm(void *datum);
 void del_lst_elm_t(struct lst_elm_t **ptrE);
 void *getDatum(struct lst_elm_t *E);
 struct lst_elm_t *getSuc(struct lst_elm_t *E);
-void *setDatum(struct lst_elm_t *E, void *datum);
+void setDatum(struct lst_elm_t *E, void *datum);
 void setSuc(struct lst_elm_t *E, struct lst_elm_t *S);
 #endif

@@ -21,7 +21,7 @@ void del_lst_elm_t(struct lst_elm_t **ptrE)
     *ptrE = NULL;
 }
 
-int getX(struct lst_elm_t *E)
+void *getDatum(struct lst_elm_t *E)
 {
     return E->datum;
 }
@@ -31,7 +31,7 @@ struct lst_elm_t *getSuc(struct lst_elm_t *E)
     return E->suc;
 }
 
-void *setDatum(struct lst_elm_t *E, void *datum)
+void setDatum(struct lst_elm_t *E, void *datum)
 {
     E->datum = datum;
 }

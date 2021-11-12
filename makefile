@@ -19,10 +19,10 @@ _PROG = lst
 # On ajoute include/ à _PROG |==> include/pt_sgt
 PROG = $(patsubst %,$(BDIR)/%,$(_PROG))
 
-_DEP = lst.h lst_elm.h
+_DEP = lst.h lst_elm.h outils.h
 DEP = $(patsubst %,$(IDIR)/%,$(_DEP))
 
-_OBJ = main.o lst.o lst_elm.o
+_OBJ = main.o lst.o lst_elm.o outils.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 # Toutes les étiquettes qui ne sont pas des fichiers sont déclarées ici
