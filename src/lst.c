@@ -90,29 +90,22 @@ void insert_ordered(struct lst_t *L, void *datum, bool (*ptrFct)())
 {
     if (emptyLst(L))
     {
-        printf("Vide\n");
         cons(L, datum);
     }
     else if ((*ptrFct)(datum, L->head->datum))
     {
-        printf("Tete\n");
         cons(L, datum);
     }
     else if ((*ptrFct)(L->tail->datum, datum))
     {
-        printf("Queue\n");
         insert_after(L, datum, L->tail);
     }
     else
     {
-        printf("Milieu\n");
         for (struct lst_elm_t *E = L->head; E; E = E->suc)
         {
-            printf("Boucle\n");
-
             if ((*ptrFct)(E->datum, datum) && (*ptrFct)(datum, E->suc->datum))
             {
-                printf("Cond\n");
                 insert_after(L, datum, E);
             }
         }
