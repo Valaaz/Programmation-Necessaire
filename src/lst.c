@@ -63,7 +63,7 @@ void del_lst(struct lst_t **ptrL, void (*ptrFct)())
         {
             struct lst_elm_t *T = E;
             E = E->suc;
-            del_lst_elm_t(&T);
+            (*ptrFct)(T->datum);
         }
     }
     free(*ptrL);
