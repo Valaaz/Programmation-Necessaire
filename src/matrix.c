@@ -64,12 +64,26 @@ struct matrix *scanMatrix()
 
 struct matrix *matrixAdd(struct matrix *A, struct matrix *B)
 {
-    struct matrix *M = (struct matrix *)calloc(1, sizeof(struct matrix));
+    struct matrix *M = consMatrix(A->n, A->m);
+    for (int i = 0; i < A->n * A->m; i++)
+    {
+        M->values[i] = A->values[i] + B->values[i];
+    }
     return M;
 }
 
 struct matrix *matrixMult(struct matrix *A, struct matrix *B)
 {
-    struct matrix *M = (struct matrix *)calloc(1, sizeof(struct matrix));
+    struct matrix *M = consMatrix(A->n, A->m);
+    for (int i = 0; i < A->n * A->m; i++)
+    {
+        for (int j = 0; j < M->n; j++)
+        {
+            for (int l = 0; l < B->m; l++)
+            {
+                M->values[pair2ind(consPair(i, j), M)] += A->values[pair2ind(consPair(i, l), A)] * B->values[pair2ind(consPair(l, j), B)];
+            }
+        }
+    }
     return M;
 }
