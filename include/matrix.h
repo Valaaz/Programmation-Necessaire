@@ -4,7 +4,7 @@
 struct matrix
 {
     double *values;
-    int n, m;
+    int n, m; // Dimension de la matrice
 };
 /** @brief Alloue la mémoire et initialise les champs m et n */
 struct matrix *consMatrix(int n, int m);
@@ -14,7 +14,7 @@ struct matrix *cpyMatrix(struct matrix *M);
 void freeMatrix(struct matrix **M);
 /** @brief Visualise la matrice M après avoir affiché son entête */
 void viewMatrix(struct matrix *M, char *entete);
-struct matrix *matrixInput(char *filename);
+struct matrix *scanMatrix();
 struct matrix *matrixAdd(struct matrix *A, struct matrix *B);
 struct matrix *matrixMult(struct matrix *A, struct matrix *B);
 
